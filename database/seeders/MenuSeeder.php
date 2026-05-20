@@ -7,16 +7,19 @@ use App\Models\Menu;
 
 class MenuSeeder extends Seeder
 {
-    public function run()
+    public function run(): void
     {
-        // botones principales
-        $inicio = Menu::create(['nombre' => 'INICIO', 'url' => '/', 'orden' => 1]);
-        $tips = Menu::create(['nombre' => 'TIPS
-        ', 'url' => '#', 'orden' => 2]);
-        $contacto = Menu::create(['nombre' => 'CONTACTO', 'url' => '#', 'orden' => 3]);
 
-        Menu::create(['nombre' => 'Maquillaje', 'url' => '/tips/maquillaje', 'parent_id' => $tips->id, 'orden' => 1]);
-        Menu::create(['nombre' => 'Facial', 'url' => '/tips/facial', 'parent_id' => $tips->id, 'orden' => 2]);
-        Menu::create(['nombre' => 'Cabello', 'url' => '/tips/cabello', 'parent_id' => $tips->id, 'orden' => 3]);
+        \App\Models\Menu::truncate();
+
+
+        $inicio = \App\Models\Menu::create(['id' => 1, 'nombre' => 'INICIO', 'url' => '/', 'parent_id' => null, 'orden' => 1]);
+        $categorias = \App\Models\Menu::create(['id' => 2, 'nombre' => 'CATEGORÍAS', 'url' => '#', 'parent_id' => null, 'orden' => 3]);
+        $recientes = \App\Models\Menu::create(['id' => 7, 'nombre' => 'RECIENTES', 'url' => '/tips', 'parent_id' => null, 'orden' => 2]);
+
+
+        \App\Models\Menu::create(['id' => 4, 'nombre' => 'Maquillaje', 'url' => '/categoria/maquillaje', 'parent_id' => $categorias->id, 'orden' => 1]);
+        \App\Models\Menu::create(['id' => 5, 'nombre' => 'Facial', 'url' => '/categoria/facial', 'parent_id' => $categorias->id, 'orden' => 2]);
+        \App\Models\Menu::create(['id' => 6, 'nombre' => 'Cabello', 'url' => '/categoria/cabello', 'parent_id' => $categorias->id, 'orden' => 3]);
     }
 }
