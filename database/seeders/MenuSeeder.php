@@ -9,11 +9,9 @@ class MenuSeeder extends Seeder
 {
     public function run(): void
     {
-
         \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS=0;');
         \Illuminate\Support\Facades\DB::table('menus')->truncate();
         \Illuminate\Support\Facades\DB::statement('SET FOREIGN_KEY_CHECKS=1;');
-
 
         \App\Models\Menu::create(['id' => 1, 'nombre' => 'INICIO', 'url' => '/', 'parent_id' => null, 'orden' => 1]);
         \App\Models\Menu::create(['id' => 7, 'nombre' => 'RECIENTES', 'url' => '/tips', 'parent_id' => null, 'orden' => 2]);
