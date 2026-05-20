@@ -14,7 +14,8 @@ class PostController extends Controller
 
     public function index()
     {
-        $posts = Post::latest()->get();
+
+        $posts = Post::orderBy('id', 'desc')->get();
         return view('tips', compact('posts'))->with('name', null);
     }
 
@@ -26,11 +27,11 @@ class PostController extends Controller
             $valorBusqueda = 'CUIDADO FACIAL';
         }
 
-        $posts = Post::where('category', $valorBusqueda)->latest()->get();
+
+        $posts = Post::where('category', $valorBusqueda)->orderBy('id', 'desc')->get();
 
         return view('tips', compact('posts'))->with('name', $valorBusqueda);
     }
-
     public function create()
     {
         return view('create');
