@@ -7,14 +7,8 @@ use App\Models\Post;
 
 class PostController extends Controller
 {
-    public function inicio()
-    {
-        return view('index');
-    }
-
     public function index()
     {
-
         $posts = Post::orderBy('id', 'desc')->get();
         return view('tips', compact('posts'))->with('name', null);
     }
@@ -27,11 +21,13 @@ class PostController extends Controller
             $valorBusqueda = 'CUIDADO FACIAL';
         }
 
-
-        $posts = Post::where('category', $valorBusqueda)->orderBy('id', 'desc')->get();
+        $posts = Post::where('category', $valorBusqueda)
+            ->orderBy('id', 'desc')
+            ->get();
 
         return view('tips', compact('posts'))->with('name', $valorBusqueda);
     }
+
     public function create()
     {
         return view('create');
@@ -46,6 +42,7 @@ class PostController extends Controller
         ]);
 
         Post::create($request->all());
+
         return redirect('/tips')->with('success', '¡Tip creado con éxito!');
     }
 
@@ -63,12 +60,14 @@ class PostController extends Controller
         ]);
 
         $post->update($request->all());
+
         return redirect('/tips')->with('success', 'Tip actualizado');
     }
 
     public function destroy(Post $post)
     {
         $post->delete();
+
         return back()->with('success', 'Tip eliminado');
     }
 }
