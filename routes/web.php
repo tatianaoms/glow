@@ -39,3 +39,14 @@ Route::post('/logout', function (Request $request) {
 
 Route::get('/categoria/{name}', [PostController::class, 'category'])->name('category.show');
 Route::resource('posts', PostController::class)->middleware('auth');
+
+// Ruta para actualizar los menús automáticamente
+Route::get('/actualizar-menu-seeder', function () {
+    try {
+        \Illuminate\Support\Facades\Artisan::call('db:seed', ['--class' => 'MenuSeeder', '--force' => true]);
+        \Illuminate\Support\Facades\Artisan::call('optimize:clear');
+        return "✅ Base de datos y menús actualizados automáticamente.";
+    } catch (\Exception $e) {
+        return "Error al actualizar: " . $e->getMessage();
+    }
+});
