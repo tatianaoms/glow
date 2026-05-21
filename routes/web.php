@@ -9,9 +9,8 @@ use App\Http\Controllers\PostController;
 Route::get('/set-tema/{color}', [TemaController::class, 'setTema'])->name('tema.set');
 Route::get('/eliminar-tema', [TemaController::class, 'eliminarTema'])->name('tema.eliminar');
 
-Route::get('/', [PostController::class, 'inicio'])->name('inicio');
+Route::get('/', [PostController::class, 'index'])->name('inicio');
 Route::get('/tips', [PostController::class, 'index'])->name('tips.index');
-
 
 // --- AUTENTICACIÓN ---
 Route::get('/login', function () {
