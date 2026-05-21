@@ -25,7 +25,7 @@
                     <option value="CUIDADO FACIAL">Facial</option>
                     <option value="MAQUILLAJE">Maquillaje</option>
                     <option value="CABELLO">Cabello</option>
-                    <option value="TIPS">Tips</option>
+
                 </select>
             </div>
 
