@@ -13,7 +13,7 @@
 <body class="{{ request()->cookie('tema_preferido') == 'dark' ? 'dark-mode' : '' }}">
 
     <div class="top-bar">
-        ¡NUEVOS TIPS DE BELLEZA CADA SEMANA! EXPLORA TU PROPIO GLOW - BY TATI
+        ¡NUEVOS TIPS DE BELLEZA CADA SEMANA! EXPLORA TU PROPIO GLOW - SHINE
     </div>
 
     <header class="main-header">
