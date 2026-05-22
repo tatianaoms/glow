@@ -17,17 +17,17 @@
 
         <div class="contenedor-mosaico">
 
-            <a href="{{ route('category.show', ['name' => 'maquillaje']) }}" class="item-categoria">
+            <a href="{{ url('/category/maquillaje') }}" class="item-categoria">
                 <img src="{{ asset('img/maqui.jpg') }}" alt="Maquillaje">
                 <div class="overlay-texto">MAQUILLAJE</div>
             </a>
 
-            <a href="{{ route('category.show', ['name' => 'facial']) }}" class="item-categoria">
+            <a href="{{ url('/category/facial') }}" class="item-categoria">
                 <img src="{{ asset('img/facial.png') }}" alt="Skincare">
                 <div class="overlay-texto">SKINCARE</div>
             </a>
 
-            <a href="{{ route('category.show', ['name' => 'cabello']) }}" class="item-categoria">
+            <a href="{{ url('/category/cabello') }}" class="item-categoria">
                 <img src="{{ asset('img/cabello.jpg') }}" alt="Cabello">
                 <div class="overlay-texto">CABELLO</div>
             </a>

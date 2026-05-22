@@ -18,30 +18,25 @@
 
     <header class="main-header">
         <div class="container-header">
-
             <nav class="nav-left">
+                <a href="{{ url('/') }}">INICIO</a>
+                <a href="{{ url('/tips') }}">RECIENTES</a>
 
-                @if (isset($menus))
-
-                    @foreach ($menus->where('parent_id', null)->sortBy('orden') as $menu)
-                        @if ($menu->submenus && $menu->submenus->count() > 0)
-                            <div class="dropdown">
-                                <a href="#">{{ $menu->nombre }} ▾</a>
-                                <div class="dropdown-content">
-
-                                    @foreach ($menu->submenus->sortBy('orden') as $submenu)
-                                        <a href="{{ url($submenu->url) }}">{{ $submenu->nombre }}</a>
-                                    @endforeach
-                                </div>
-                            </div>
-                        @else
-                            <a href="{{ url($menu->url) }}">{{ $menu->nombre }}</a>
-                        @endif
-                    @endforeach
-                @endif
+                <div class="dropdown">
+                    <a href="#">CATEGORÍAS ▾</a>
+                    <div class="dropdown-content">
+                        <a href="{{ url('/category/maquillaje') }}">MAQUILLAJE</a>
+                        <a href="{{ url('/category/facial') }}">SKINCARE</a>
+                        <a href="{{ url('/category/cabello') }}">CABELLO</a>
+                    </div>
+                </div>
 
                 @auth
                     <a href="{{ route('posts.create') }}" class="btn-publicar">PUBLICAR TIP</a>
+
+                    @if (auth()->user()->role === 'admin')
+                        <a href="{{ route('admin.usuarios') }} ">ROLES Y PERMISOS</a>
+                    @endif
                 @endauth
             </nav>
 
@@ -52,7 +47,6 @@
             </div>
 
             <div class="nav-right" style="display: flex; align-items: center; gap: 15px;">
-
                 @if (request()->cookie('tema_preferido') == 'dark')
                     <a href="{{ route('tema.set', 'light') }}" class="btn-tema-toggle" title="Cambiar a Modo Claro">
                         <i class="fas fa-sun"></i>
@@ -66,24 +60,24 @@
                 @auth
                     <form action="{{ route('logout') }}" method="POST" style="display: inline; margin: 0;">
                         @csrf
-                        <button type="submit" class="btn-logout">SALIR</button>
+                        <button type="submit" class="btn-logout"
+                            style="background:none; border:none; cursor:pointer;">SALIR</button>
                     </form>
+                @else
+                    <a href="{{ url('/login') }}" class="icon-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="12" cy="7" r="4"></circle>
+                        </svg>
+                    </a>
                 @endauth
-
-                <a href="{{ url('/login') }}" class="icon-link">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
-                </a>
             </div>
         </div>
     </header>
 
     <main>
-
         @yield('contenido')
     </main>
 
@@ -95,7 +89,6 @@
         </div>
 
         <div class="footer-container">
-
             <div class="footer-col">
                 <h3>LÍNEAS DE ATENCIÓN</h3>
                 <div class="atencion-item">
@@ -112,9 +105,7 @@
                 </div>
             </div>
 
-
             <div class="footer-col">
-
                 <h3 class="mt-20">SÍGUENOS EN</h3>
                 <div class="redes-bloomshell">
                     <a href="#"><i class="fab fa-instagram"></i></a>
@@ -130,24 +121,24 @@
                 </ul>
             </div>
 
-
             <div class="footer-col">
                 <h3>MI CUENTA</h3>
                 <ul>
-                    <li><a href="{{ route('login') }}">Acceder - Registrarse</a></li>
-
+                    @guest
+                        <li><a href="{{ route('login') }}">Acceder</a></li>
+                        <li><a href="{{ route('register') }}">Registrarse</a></li>
+                    @endguest
+                    @auth
+                        <li><a href="{{ route('profile.show') }}">Mi Perfil</a></li>
+                    @endauth
                 </ul>
             </div>
         </div>
-
-
-
     </footer>
 
     <div class="footer-bottom">
         <p>© 2026 GLOW - Todos los derechos reservados</p>
     </div>
-    </footer>
 
     @stack('scripts')
 </body>

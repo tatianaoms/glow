@@ -14,11 +14,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         View::composer('*', function ($view) {
+            try {
 
-            $menus = Menu::with('submenus')
-                ->whereNull('parent_id')
-                ->orderBy('orden')
-                ->get();
+                $menus = Menu::with('submenus')
+                    ->whereNull('parent_id')
+                    ->orderBy('orden')
+                    ->get();
+            } catch (\Exception $e) {
+
+                $menus = collect();
+            }
 
             $view->with('menus', $menus);
         });

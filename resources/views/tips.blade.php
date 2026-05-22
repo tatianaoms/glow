@@ -28,21 +28,23 @@
 
                 <small class="fecha-post">Publicado el: {{ $post->created_at->format('d/m/Y H:i') }}</small>
 
+                {{-- LÓGICA DE PERMISOS --}}
                 @auth
-                    <div class="acciones">
-                        <a href="{{ route('posts.edit', $post->id) }}" class="boton-editar">Editar</a>
-                        <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;"
-                            onsubmit="return confirm('¿Eliminar?');">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="boton-eliminar">Eliminar</button>
-                        </form>
-                    </div>
+                    @if (auth()->user()->role === 'admin' || auth()->user()->id === $post->user_id)
+                        <div class="acciones">
+                            <a href="{{ route('posts.edit', $post->id) }}" class="boton-editar">Editar</a>
+                            <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline;"
+                                onsubmit="return confirm('¿Eliminar?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="boton-eliminar">Eliminar</button>
+                            </form>
+                        </div>
+                    @endif
                 @endauth
             </div>
             <hr class="linea-separadora">
         @empty
-
             <p class="mensaje-vacio">Todavía no hay tips en esta categoría. <br> ¡Muy pronto!</p>
         @endforelse
     </div>

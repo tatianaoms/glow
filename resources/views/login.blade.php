@@ -4,7 +4,7 @@
     <div class="container-formulario login-especifico">
         <h2 class="titulo-login">INICIAR SESIÓN</h2>
 
-        @if($errors->any())
+        @if ($errors->any())
             <p class="error-msg">
                 {{ $errors->first() }}
             </p>

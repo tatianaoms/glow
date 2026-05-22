@@ -8,8 +8,8 @@ class Post extends Model
 {
     protected $table = 'posts';
 
-    // Añade esto para permitir guardar el título, contenido y categoría
-    protected $fillable = ['title', 'content', 'category'];
+
+    protected $fillable = ['title', 'category', 'content', 'user_id'];
 
     public $timestamps = true;
 }

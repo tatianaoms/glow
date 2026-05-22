@@ -3,23 +3,25 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
 {
-    use WithoutModelEvents;
-
-    /**
-     * Seed the application's database.
-     */
     public function run(): void
     {
-        // User::factory(10)->create();
+        // 1. Crear los roles
+        $this->call(RoleSeeder::class);
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // 2. Crear o buscar al administrador
+        $admin = User::firstOrCreate(
+            ['email' => 'admin@glow.com'],
+            [
+                'name' => 'Administrador Glow',
+                'password' => bcrypt('123456'), // Tu contraseña
+            ]
+        );
+
+        // 3. Asignar el rol de una
+        $admin->assignRole('Admin');
     }
 }
